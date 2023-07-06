@@ -1,0 +1,83 @@
+== Chapter 1 : Introducing React
+
+* JSX(**J**ava**S**cript **X**ML) is a JavaScript syntax extension. This means that it doesn't execute directly in the browser – it needs to be transpiled to JavaScript first. A popular tool that can transpile JSX is called Babel.
+* a React app is structured in a tree of React components and DOM elements.
+
+[source, typescriptjsx]
+----
+function App() {
+  return (
+ // --- JSX bit ----
+    <div className="App">
+      <Alert type="information" heading="Success">
+        Everything is really good!
+      </Alert>
+    </div>
+ // --- JSX bit ----
+); }
+----
+
+* A React component is a JavaScript function whose name starts with a capital letter. The function returns what should be displayed using JSX syntax.
+* A React component name must start with a capital letter. If a component name starts with a lowercase letter, it is treated as a DOM element and won’t render properly. See the following link in the React documentation for more information: https://reactjs.org/docs/jsx-in-dept.html#user-defined-components-must-be-capitalized.
+* The filename for component files isn’t important to React or the *React transpiler*. It is common practice to use the same name as the component, either in Pascal or snake case. However, the file extension must be .js or .jsx for React transpilers to recognize these as React components.
+* `import` and `export` statements allow JavaScript to be structured into modules. By default, JavaScript code executes in what is called the global scope. Thankfully, JavaScript has a modules feature. A module’s functions and variables are isolated, so functions with the same name in different modules won’t collide.
+* A module is a file with at least one export statement.
+* Importing a default exported statement must be done with a default `import` statement and the name of the imported default member must be the same as the exported member.
+
+=== Props
+
+* React components have `props` that can be used to customize it. `props` is an optional parameter that is passed into a React component.
+* React components using other react components are referred to as `consumers` of the component.
+* Destructuring is a JavaScript feature that allows properties to be unpacked from an object. For more information, see the following link: https://developer.mozilla.org/en-US/ docs/Web/JavaScript/Reference/Operators/Destructuring_assignment.
+* Props allow a component to be configured by the consuming JSX and are passed as JSX attributes.
+* Props are received in the component definition in an object parameter and can then be used in its JSX.
+
+=== State
+
+* The component state is a special variable containing information about the component’s current situation. For example, a component may be in a `loading` state or an `error` state.
+* `state` is a key part of making a component interactive. State is defined using a `useState` function from React. The `useState` function is one of React’s hooks.
+
+[source]
+----
+const [state, setState] = useState(initialState);
+----
+
+* `useState` returns a tuple containing the current state value and a function to update the state value.
+* `useState` returns a *state variable* that can be used to render elements conditionally and a function that can be used to update the value of the state.
+
+* `boolAttr={true}` is equivalent to `boolAttr`.  If the boolean attribute is present on an element, its value is automatically `true`.
+
+=== Events
+
+* React events are a wrapper on top of the browser’s native events.
+* A custom event in a component is implemented by implementing a `prop`. The `prop` is a function that is called to raise the event.
+* It is common practice to start an event prop name with `on`.
+* Events, along with state, allow a component to be interactive.
+
+
+=== Quizz Answers
+
+1. Component name starts with lowercase letter.
+2. Use `<div>{name}</div>`, also default value for prop, would be a nice touch.
+3. Either change prop name to `name` or attribute name to `firstName`.
+4. use `onClick` instead of `click`.
+5. `true`
+6. Need a  boolean value, maybe `useState(false);`  (shit!!!) Correct: call setAgree(true) to change the state.
+7. Check if a function is passed as value to `onAgree`, to avoid problems when undefined.
+[source]
+----
+if (onAgree) {
+            onAgree();
+}
+----
+
+== Chapter 2 : Introducing TypeScript
+
+* TypeScript is often referred to as a superset or extension of JavaScript. TypeScript adds a rich type system to JavaScript. It is generally used with frontend frameworks such as Angular, Vue, and React.
+* Unlike JavaScript, TypeScript can’t be executed directly in a browser – it must be transpiled into JavaScript first.
+
+=== Basic TypeScript types
+
+* {:typename} - it is referred to as a type annotation.
+* TypeScript gives a variable with no type annotation and no immediately assigned value the `any` type.
+* Typescript variables initialized with external values, wiht unsure type can be declared as `unknown`.
