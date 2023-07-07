@@ -1,7 +1,11 @@
 == Chapter 1 : Introducing React
 
+Learning using _Carl Rippon's  Learn React with TypeScript, A beginner's guide to reactive web development with React 18 and TypeScript._
+
+*NOTE:* Transpilers are also known as source-to-source compilers. So in essence they are a subset of compilers which take in a source code file and convert it to another source code file in some other language or a different version of the same language. The output is generally understandable by a human. This output still has to go through a compiler or interpreter to be able to run on the machine.
+
 * JSX(**J**ava**S**cript **X**ML) is a JavaScript syntax extension. This means that it doesn't execute directly in the browser – it needs to be transpiled to JavaScript first. A popular tool that can transpile JSX is called Babel.
-* a React app is structured in a tree of React components and DOM elements.
+* A React app is structured in a tree of React components and DOM elements.
 
 [source, typescriptjsx]
 ----
