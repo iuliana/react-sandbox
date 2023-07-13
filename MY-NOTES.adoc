@@ -2,6 +2,8 @@
 
 Learning using _Carl Rippon's  Learn React with TypeScript, A beginner's guide to reactive web development with React 18 and TypeScript._
 
+*NOTE:* Run the app by executing `npm start` in a terminal.
+
 *NOTE:* Transpilers are also known as source-to-source compilers. So in essence they are a subset of compilers which take in a source code file and convert it to another source code file in some other language or a different version of the same language. The output is generally understandable by a human. This output still has to go through a compiler or interpreter to be able to run on the machine.
 
 * JSX(**J**ava**S**cript **X**ML) is a JavaScript syntax extension. This means that it doesn't execute directly in the browser – it needs to be transpiled to JavaScript first. A popular tool that can transpile JSX is called Babel.
@@ -39,7 +41,7 @@ function App() {
 === State
 
 * The component state is a special variable containing information about the component’s current situation. For example, a component may be in a `loading` state or an `error` state.
-* `state` is a key part of making a component interactive. State is defined using a `useState` function from React. The `useState` function is one of React’s hooks.
+* `state` is a key part of making a component interactive. State is defined using a `useState` function from React. The `useState` function is one of React’s *hooks*.
 
 [source]
 ----
@@ -53,6 +55,8 @@ const [state, setState] = useState(initialState);
 
 === Events
 
+* React events are a wrapper on top of the browser’s native events.
+* A function called an event handler (sometimes referred to as an event listener) can be registered for an element event that contains the logic to execute when that event happens.
 * React events are a wrapper on top of the browser’s native events.
 * A custom event in a component is implemented by implementing a `prop`. The `prop` is a function that is called to raise the event.
 * It is common practice to start an event prop name with `on`.
@@ -84,4 +88,8 @@ if (onAgree) {
 
 * {:typename} - it is referred to as a type annotation.
 * TypeScript gives a variable with no type annotation and no immediately assigned value the `any` type.
-* Typescript variables initialized with external values, wiht unsure type can be declared as `unknown`.
+* Typescript variables initialized with external values, with unsure type can be declared as `unknown`.
+* `void` type is used to represent a function’s return type where the function doesn’t return a value.
+* The `never` type represents something that will never occur and is typically used to specify unreachable code areas. This is different from `void` because `void` means it will exit, but with no value.
+
+*NOTE:* JavaScript Template literals are enclosed by backticks and can include a JavaScript expression in curly braces prefixed with a dollar sign (`${expression}`). Template literals are great when we need to merge static text with variables.

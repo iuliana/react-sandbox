@@ -1,9 +1,8 @@
-function
-fetch("https://swapi.dev/api/people/1")
-.then((response) => response.json())
-    .then((data: unknown) => {
-        console.log("name", data.name); });calculateTotalPrice(
-    product: { name: string; unitPrice: number }, quantity: number,
+// Paste contents in
+// https://www.typescriptlang.org/play
+function calculateTotalPrice(
+    product: { name: string; unitPrice: number },
+    quantity: number,
     discount: number
 ){
     const priceWithoutDiscount = product.unitPrice * quantity;
@@ -14,18 +13,23 @@ fetch("https://swapi.dev/api/people/1")
 function playground() {
 
     let unitPrice: number;
+    // unitPrice = "Table";
 
     let flag = false;
+    // flag = "table";
     //let total :string = getTotal("1", 2, 3.2);
 
     let today = new Date();
-    // today.addMonths(2);
+    //today.addMonths(2);
+
+    let flag2; // 'any' type
 }
 
 function misc() {
     fetch("https://swapi.dev/api/people/1")
         .then((response) => response.json())
-        .then((data : unknown) => {
+        .then((data) => {
+        //.then((data:unknown) => {
             console.log("firstName", data.firstName);
         });
 
@@ -38,8 +42,7 @@ function misc() {
         });
 }
 
-function isCharacter(character: any):
-    character is { name: string } { // type predicate
+function isCharacter(character: any): character is { name: string } { // type predicate
     return "name" in character;
 }
 
@@ -55,4 +58,11 @@ function getTotal(
 
 function logText(text: string) {
     console.log(text);
+}
+
+function foreverTask(taskName: string): never {
+    while (true) {
+        console.log(`Doing ${taskName} over and over again ...`);
+        //break;
+    }
 }

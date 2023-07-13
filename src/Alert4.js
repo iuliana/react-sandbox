@@ -6,7 +6,7 @@ export const Alert4 = ({
                            type = "information",
                            heading,
                            children,
-                           closable,
+                           closable, // makes the component closable by adding a close button
                            onClose }) => {
 
     const [visible, setVisible] = useState(true);
@@ -14,6 +14,7 @@ export const Alert4 = ({
         return null;
     }
 
+    // this is an event handler / event listener function
     // handleCloseClick() {}
     const handleCloseClick = () => {
         setVisible(false);
@@ -21,6 +22,7 @@ export const Alert4 = ({
             onClose();
         }
     }
+
     return (
         <div>
             <div>
