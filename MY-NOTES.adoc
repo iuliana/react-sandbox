@@ -2,7 +2,40 @@
 
 Learning using _Carl Rippon's  Learn React with TypeScript, A beginner's guide to reactive web development with React 18 and TypeScript._
 
-*NOTE:* Run the app by executing `npm start` in a terminal.
+=== Package Managers
+
+*Npm* will create node modules globally, if you use some node packages frequently on most of the application you should go for npm.
+
+*npx* locally installs all node packages for a specific project.
+
+*Yarn* is, like NPM, a package manager for Node.JS. Yarn is a different package, but faster than npm and npx. Yarn is built by Facebook. It's faster and has more features than NPM. Their main selling points are:
+
+* *Security*
+    ** With `yarn.lock` file (similar to NPM's `npm-shrinkwrap.json`) all dependencies are locked on the exact version. So, you don't have that “But it works on my machine” struggles anymore. Everyone has the same versions locked in `yarn.lock` file
+* *Speed*
+** Yarn uses (fast) proxies and (offline) caching to deliver your modules faster.
+
+=== Create a Project from scratch
+
+Using https://www.npmjs.com[npm] and https://vitejs.dev[vite] a default structure for a React project is easy to generate.
+
+[source]
+----
+> npm create vite@latest #create react project
+----
+
+Choose to create a React project with TypeScript + SWC. https://swc.rs[SWC] SWC is an extensible Rust-based platform for the next generation of fast developer tools, that can be used for both compilation and bundling. For compilation, it takes JavaScript / TypeScript files using modern JavaScript features and outputs valid code that is supported by all major browsers.
+
+After generating the project run:
+
+[source]
+----
+> npm install
+----
+
+Run the app by executing `npm run dev` in a terminal.
+
+Run `npm run lint` to verify your app syntax.
 
 *NOTE:* Transpilers are also known as source-to-source compilers. So in essence they are a subset of compilers which take in a source code file and convert it to another source code file in some other language or a different version of the same language. The output is generally understandable by a human. This output still has to go through a compiler or interpreter to be able to run on the machine.
 
@@ -93,3 +126,33 @@ if (onAgree) {
 * The `never` type represents something that will never occur and is typically used to specify unreachable code areas. This is different from `void` because `void` means it will exit, but with no value.
 
 *NOTE:* JavaScript Template literals are enclosed by backticks and can include a JavaScript expression in curly braces prefixed with a dollar sign (`${expression}`). Template literals are great when we need to merge static text with variables.
+
+* `Arrays` are structures that TypeScript inherits from JavaScript. They can be declared in two ways:
+
+[source, typescript]
+----
+const numbers1: number[] = [];
+const numbers2: Array<number> = [];
+----
+
+* `object types: { term1: type1; term2: type2 }`
+* The `?` symbol is used to make parameters optional, in type and functions declarations.
+* A `type alias` refers to another type, and the syntax is as follows: `type YourTypeAliasName = AnExistingType;`
+
+* A type alias can extend another object using the `&` symbol. A type that extends another using the & symbol is referred to as an intersection type.
+
+[source, typescript]
+----
+type Product = { name: string; unitPrice?: number };
+type DiscountedProduct = Product & { discount: number };
+----
+
+* A type alias can also be used to represent a function.
+[source, typescript]
+----
+// a function containing a number parameter and doesn’t
+// return anything.
+type Purchase = (quantity: number) => void;
+----
+
+* Object types can be created using TypeScript’s *interface* syntax.

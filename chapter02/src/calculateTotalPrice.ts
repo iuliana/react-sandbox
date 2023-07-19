@@ -12,17 +12,17 @@ function calculateTotalPrice(
 
 function playground() {
 
-    let unitPrice: number;
+    //let unitPrice: number;
     // unitPrice = "Table";
 
-    let flag = false;
+    //let flag = false;
     // flag = "table";
     //let total :string = getTotal("1", 2, 3.2);
 
-    let today = new Date();
+    //let today = new Date();
     //today.addMonths(2);
 
-    let flag2; // 'any' type
+    //let flag2; // 'any' type
 }
 
 function misc() {
@@ -66,3 +66,18 @@ function foreverTask(taskName: string): never {
         //break;
     }
 }
+
+type Purchase = (quantity: number) => void;
+
+type Product = {
+    name: string;
+    unitPrice?: number;
+    purchase: Purchase;
+};
+
+let table: Product = {
+    name: "Table",
+    purchase: (quantity) =>
+        console.log(`Purchased ${quantity} tables`),
+};
+table.purchase(4);
