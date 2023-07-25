@@ -1,0 +1,76 @@
+
+= Chapter 2 : Introducing TypeScript
+
+I deviated from the book. Used `vite` to generate the project. Added SWC to be used instead of Babel. And installed FontAwesome
+
+* TypeScript is often referred to as a superset or extension of JavaScript. TypeScript adds a rich type system to JavaScript. It is generally used with frontend frameworks such as Angular, Vue, and React.
+* Unlike JavaScript, TypeScript can’t be executed directly in a browser – it must be transpiled into JavaScript first.
+
+== Using TypeScript types
+
+* {:typename} - it is referred to as a type annotation.
+* TypeScript gives a variable with no type annotation and no immediately assigned value the `any` type.
+* Typescript variables initialized with external values, with unsure type can be declared as `unknown`.
+* `void` type is used to represent a function’s return type where the function doesn’t return a value.
+* The `never` type represents something that will never occur and is typically used to specify unreachable code areas. This is different from `void` because `void` means it will exit, but with no value.
+
+*NOTE:* JavaScript Template literals are enclosed by backticks and can include a JavaScript expression in curly braces prefixed with a dollar sign (`${expression}`). Template literals are great when we need to merge static text with variables.
+
+* `Arrays` are structures that TypeScript inherits from JavaScript. They can be declared in two ways:
+
+[source, typescript]
+----
+const numbers1: number[] = [];
+const numbers2: Array<number> = [];
+----
+
+* `object types: { term1: type1; term2: type2 }`
+* The `?` symbol is used to make parameters optional, in type and functions declarations.
+* A `type alias` refers to another type, and the syntax is as follows: `type YourTypeAliasName = AnExistingType;`
+
+* A type alias can extend another object using the `&` symbol. A type that extends another using the & symbol is referred to as an intersection type.
+
+[source, typescript]
+----
+type Product = { name: string; unitPrice?: number };
+type DiscountedProduct = Product & { discount: number };
+----
+
+* A type alias can also be used to represent a function.
+[source, typescript]
+----
+// a function containing a number parameter and doesn’t
+// return anything.
+type Purchase = (quantity: number) => void;
+----
+
+* Object types can be created using TypeScript’s *interface* syntax. An interface can extend another interface using the `extends` keyword.
+* An interface can also be used to represent a function.
+* _When should I use a type alias instead of an interface and vice versa?_ The capabilities of `type aliases` and `interfaces` for creating object types are very similar – so the simple answer is that it is down to *preference for object types*. Type aliases can create types that interfaces can’t, though, such as union types, which we shall cover later in this chapter.
+
+* A `class` is a standard JavaScript feature that acts as a template for creating an object. Properties and
+methods defined in the class are automatically included in objects created from the class.
+* Decorate types with `?` to allow for optional properties in types declarations.
+* Default values cam be set for object properties, which avoid declaring types for properties.
+* Another method of adding types to class properties is in a `constructor`. In fact, the properties don’t need to be defined if the constructor parameters are marked as `public`.
+* *Enumerations* allow us to declare a meaningful set of friendly names that a variable can be set to.We use the `enum` keyword, followed by the name we want to give to it, and then its possible values in curly braces.
+* By default, enumerations are zero-based numbers. Instead of the default values, custom values can be explicitly defined against each enumeration.
+* A `union` type is the mathematical union of multiple other types to create a new type. Like enumerations, union types can represent a range of values. As mentioned earlier, type aliases can be used to create union types.
+* An example of a union type is as follows:
+[source]
+----
+type Level = "H" | "M" | "L";
+----
+* Union types consisting of strings are great when a type can only hold a specific set of strings
+* TypeScript has a compiler, called tsc, that we can use to carry out type checking and transpilation as part of a continuous integration process. The compiler is very flexible and can be configured using a file called `tsconfig.json`.
+* For more information on the TypeScript compiler options, see the following link: https://www.typescriptlang.org/tsconfig.
+
+== Quizz Answers
+
+1. type 'boolean'
+2. type 'void'
+3. `Date[]` or `Array<Date>`
+4. no
+5. `type MyNos = 1|2|3;`
+6. `noEmitOnError = true`
+7. Add `| null` to the `Date` type to allow null values

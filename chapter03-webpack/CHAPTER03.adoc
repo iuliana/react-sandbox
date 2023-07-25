@@ -1,0 +1,92 @@
+
+= Chapter 3 : Setting Up React and TypeScript
+
+*Webpack* is a tool that bundles JavaScript source code files together. It can also bundle CSS and
+images. It can run other tools such as Babel to transpile React and the TypeScript type checker as it
+scans the files. It is a mature and incredibly popular tool used in the React community that powers
+many React projects.
+
+NOTE: Basically Vite is an alternative to Webpack.
+
+Webpack is incredibly flexible but, unfortunately, it requires a lot of configuration.
+
+It is important to understand that webpack isn’t a project creation tool. For example, it won’t install React or TypeScript – we have to do that separately. Instead, webpack brings tools such as React and TypeScript together once installed and configured.
+
+Using `npm install` without specifying any options will install the dependencies listed inside `package.json`. The `install` command has options for the specific packages to be installed that aren’t in `package.json` yet.
+
+[source]
+----
+npm install --save-dev typescript
+----
+
+The `--save-dev` option is ised to specify a dependency being required only for development, and not runtime.
+
+== Creating React + TypeScript from scratch
+
+[source, shell]
+----
+$ mkdir src
+$ cat >src/index.html <<EOL
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>My app</title>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+</html>
+EOL
+$ cat >package.json <<EOL
+{
+  "name": "chapter03-webpack-app",
+  "description": "My React and TypeScript app",
+  "version": "0.0.1",
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  }
+}
+EOL
+$ npm install --save-dev typescript
+$ cat >tsconfig.json <<EOL
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "jsx": "react",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}
+EOL
+$ npm install react react-dom
+$ npm install --save-dev @types/react @types/react-dom
+
+$ npm install --save-dev @babel/core
+# or
+$ npm i -D @babel/core
+
+$ npm i -D @babel/preset-env
+$ npm i -D @babel/preset-react
+$ npm i -D @babel/preset-typescript
+$ npm i -D @babel/plugin-transform-runtime @babel/runtime
+# install webpack
+$ npm i -D webpack webpack-cli
+$ npm i -D webpack-dev-server
+$ npm i -D babel-loader
+$ npm i -D html-webpack-plugin
+# configuring webpack
+$ npm i -D ts-node
+----
+
+The file extension `.tsx` rather than `.js`  allows Babel and TypeScript to detect TypeScript files containing JSX in the transpilation and type-checking processes. A `.ts` extension can be used for TypeScript code that doesn't contain any JSX.

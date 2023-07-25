@@ -3,7 +3,12 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
-function App() {
+//import Alert1 from "./Alert1";
+//import {Alert2} from "./Alert2";
+//import {Alert3} from "./Alert3";
+import {Alert4} from "./Alert4";
+
+export default function App() {
   const [count, setCount] = useState(0)
 
   return (
@@ -18,18 +23,19 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+          {/*<Alert1/>*/}
+          {/*<Alert2/>*/}
+          {/*<Alert3 type="information" heading="[Alert3] Success">
+              Everything is really good!
+          </Alert3>*/}
+          <Alert4
+              type="information"
+              heading="Success"
+              closable
+              onClose={() => console.log("closed")}>
+              [Alert4]Everything is really good!
+          </Alert4>
+        </div>
     </>
   )
 }
-
-export default App
