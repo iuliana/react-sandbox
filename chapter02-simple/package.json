@@ -4,6 +4,10 @@
     "typescript": "^4.6.4"
   },
   "scripts": {
+<<<<<<< HEAD
     "build": "tsc"
+=======
+    "build": "tsc src/product.ts"
+>>>>>>> d95047f75a57ed616ce2409b780e2c248baa867f
   }
 }
