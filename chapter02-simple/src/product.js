@@ -10,6 +10,5 @@ var Product = /** @class */ (function () {
     };
     return Product;
 }());
-
 var table = new Product("Table", 45);
 console.log(table.getDiscountedPrice(5));

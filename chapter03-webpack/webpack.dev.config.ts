@@ -1,5 +1,7 @@
+
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+
 import {
     Configuration as WebpackConfig,
     HotModuleReplacementPlugin,
@@ -7,9 +9,11 @@ import {
 import {
     Configuration as WebpackDevServerConfig
 } from 'webpack-dev-server';
+
 type Configuration = WebpackConfig & {
     devServer?: WebpackDevServerConfig;
 }
+
 const config: Configuration = {
     mode: 'development',
     output: {

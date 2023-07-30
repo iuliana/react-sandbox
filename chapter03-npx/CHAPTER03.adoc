@@ -1,0 +1,18 @@
+
+= Chapter 3 : Setting Up React and TypeScript
+
+Since `npm` version 5.2.0 `npx` is pre-bundled with `npm`. So it’s pretty much a standard nowadays.
+
+`npx` is also a CLI tool whose purpose is to make it easy to install and manage dependencies hosted in the `npm` registry.
+
+
+`npx` allows `npm` packages to temporarily be installed and run. It is a common method of running project scaffolding tools such as Create React App.
+
+To create a React App the following command  can be used:
+
+[source]
+----
+> npx create-react-app chapter03-npx --template typescript
+----
+
+Linting is the process of checking code for potential problems. It is common practice to use linting tools to catch problems early in the development process as code is written. ESLint is a popular tool that can lint React and TypeScript code. Fortunately, Create React App has already installed and configured ESLint in our project.
