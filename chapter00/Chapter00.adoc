@@ -1,0 +1,28 @@
+= Creating project with Yarn
+
+`nvm` is a version manager for `node.js` . `nvm` allows you to quickly install and use different versions of node via the command line. https://github.com/nvm-sh/nvm#install--update-script[Installation instructions].
+
+
+Install `yarn`
+
+[source]
+----
+> npm install --global yarn
+> yarn --version
+----
+
+Install dependencies:
+
+[source]
+----
+> yarn add react
+> yarn add react-dom
+> yarn add react-scripts
+> yarn add @babel/runtime --dev
+> yarn add typescript --dev
+----
+
+The following files must be checked into source control for anyone to be able to manage your package:
+
+* `package.json`: This has all the current dependencies for your package.
+* `yarn.lock`: This stores the exact versions of each dependency for your package.
