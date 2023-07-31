@@ -16,3 +16,47 @@ To create a React App the following command  can be used:
 ----
 
 Linting is the process of checking code for potential problems. It is common practice to use linting tools to catch problems early in the development process as code is written. ESLint is a popular tool that can lint React and TypeScript code. Fortunately, Create React App has already installed and configured ESLint in our project.
+
+== Quizz Answers
+
+1. `any`
+2. `string`
+3. no error, `firstName` is optional
+4. String, union
+5. Array
+6. `const [email, setEmail] = useState(null);`
+7. function `() => void`
+
+Wrong ones:
+
+No 4: `const [status, setStatus] = useState<'Good' | 'Bad'>('Good');`
+
+No 5:
+[source]
+----
+type Props = {
+    fruits: string[];
+}
+
+# or
+
+type Props {
+    fruits: string[];
+}
+----
+
+No 6: `const [email, setEmail] = useState<string | null>(null);`
+
+No 7: sorta right.
+[source]
+----
+type Props = {
+    onAgree: () => void;
+};
+
+# or
+
+interface Props {
+    onAgree: () => void;
+}
+----

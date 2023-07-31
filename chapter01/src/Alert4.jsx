@@ -42,7 +42,9 @@ export const Alert4 = ({
 
                 {closable && (
                     <button aria-label="Close" onClick={handleCloseClick}>
-                        <span role="img" aria-label="Close"><FontAwesomeIcon icon={faClose}/></span>
+                        <span role="img" aria-label="Close">
+                          <FontAwesomeIcon icon={faClose}/>
+                        </span>
                     </button>
                 )}
 
