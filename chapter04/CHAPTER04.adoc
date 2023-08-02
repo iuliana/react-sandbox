@@ -1,4 +1,13 @@
 
 = Chapter 4 : Hooks
 
-Page 107
+The *effect Hook* is used for component side effects. A component side effect is something executed outside the scope of the component, such as a web service request. The effect Hook is defined using the `useEffect` function from React. `useEffect` contains two parameters:
+
+* A function that executes the effect; at a minimum, this function runs each time the component is rendered.
+* An optional array of dependencies that cause the effect function to rerun when changed
+
+Rules:
+
+* A Hook can only be called at the top level of a function component. So, a Hook can’t be called in a loop or in a nested function such as an event handler.
+* A Hook can’t be called conditionally.
+* A Hook can only be used in function components and not class components.
