@@ -9,9 +9,11 @@ function SomeComponent(){
   });
 
   return (<>
-    <p className="aaa">
-      Some effect <FontAwesomeIcon icon={faCog}/>
+    <div className={`alert-wrapper error`}>
+    <p>
+      Some component <FontAwesomeIcon icon={faCog}/>
     </p>
+    </div>
   </>);
 }
 

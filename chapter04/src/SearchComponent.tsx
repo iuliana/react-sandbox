@@ -10,9 +10,11 @@ function SearchComponent({search = ""} ){
 
   return (
     <>
-    <p className="bbb">
-      Search <FontAwesomeIcon icon={faSearch}/>
-    </p>
+      <div className={`alert-wrapper success`}>
+        <p className="bbb">
+          Search Component <FontAwesomeIcon icon={faSearch}/>
+        </p>
+      </div>
   </>
   );
 }

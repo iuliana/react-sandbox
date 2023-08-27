@@ -1,6 +1,8 @@
 
 = Chapter 4 : Hooks
 
+== `useEffect`
+
 The *effect Hook* is used for component side effects. A component side effect is something executed outside the scope of the component, such as a web service request. The effect Hook is defined using the `useEffect` function from React. `useEffect` contains two parameters:
 
 * A function that executes the effect; at a minimum, this function runs each time the component is rendered.
@@ -11,3 +13,163 @@ Rules:
 * A Hook can only be called at the top level of a function component. So, a Hook can’t be called in a loop or in a nested function such as an event handler.
 * A Hook can’t be called conditionally.
 * A Hook can only be used in function components and not class components.
+* The *effect Hook* is used to execute component side effects when a component is rendered or when certain props or states change.
+* A common use case for the effect Hook is fetching data. Another use case is where DOM events need to be manually registered.
+* Any required effect cleanup can be done in a function returned by the effect function.
+
+== `useState`
+
+The `useState` Hook allows state to be defined in a variable.
+
+== `useReducer`
+
+* `useReducer` is an alternative method of managing state. It uses a reducer function for state changes, which takes in the current state value and returns the new state value.
+
+[source]
+----
+const [state, dispatch] = useReducer(reducer, initialState);
+----
+
+* So, `useReducer` takes in a reducer function and the initial state value as parameters. It then returns a tuple containing the current state value and a function to *dispatch* state changes.
+* The dispatch function takes in an argument that describes the change. This object is called an *action*.
+* An example dispatch call is as follows:
+
+[source]
+----
+dispatch({ type: 'add', amount: 2 });
+----
+
+* The types for useReducer can be explicitly defined in its generic parameter as follows:
+
+[source]
+----
+const [state, dispatch] = useReducer<Reducer<State, Action>>(
+    reducer,
+    initialState
+);
+----
+
+* `Reducer` is a standard React type that has generic parameters for the type of state and the type of action.
+* So, `useReducer` is more complex than `useState` because *state changes go through a reducer function* that we must implement. This benefits complex state objects with related properties or when a state change depends on the previous state value.
+* `useReducer` is more useful for complex state management situations than `useState`useState, for example, when the state is a complex object with related properties and state changes depend on previous state values.
+* The `useState` Hook is more appropriate when the state is based on primitive values independent of any other state.
+
+== `useRef`
+
+* The `ref` Hook is called `useRef` and it returns a variable whose value is persisted for the lifetime of a
+component. This means that the variable doesn’t lose its value when a component re-renders.
+* The value returned from the ref Hook is often referred to as a *ref*. The ref can be changed without
+causing a re-render.
+
+[source]
+----
+const ref = useRef(initialValue);
+----
+
+*  An initial value can optionally be passed into `useRef`. The type of the ref can be explicitly defined in a generic argument for `useRef`:
+
+[source]
+----
+const ref = useRef<Ref>(initialValue);
+----
+
+* The generic argument is useful when no initial value is passed or is null. This is because TypeScript won’t be able to infer the type correctly.
+* The value of the ref is accessed via its current property:
+
+[source]
+----
+console.log("Current ref value", ref.current);
+----
+
+* The value of the ref can be updated via its `current` property as well:
+
+[source]
+----
+ref.current = newValue;
+----
+
+* A common use of the `useRef` Hook is to access HTML elements imperatively.
+
+* It is not recommended to mix the concerns of fetching data, setting state, and setting focus to a button in the body of the same `useEffect` hook; Mixing concerns like this can make components hard to understand and change.
+* **To recap, the `useRef` Hook creates a mutable value and doesn’t cause a re-render when changed.** It is commonly used to access HTML elements in React imperatively.
+
+== `useMemo`
+
+The `memo` Hook creates a memoized value and is beneficial for values that have computationally expensive calculations. The Hook is called `useMemo` and the syntax is as follows:
+[source]
+----
+const memoizedValue = useMemo(() => expensiveCalculation(),[]);
+----
+* A function that returns the value to memoize is passed into useMemo as the first argument. The function in this first argument should perform the expensive calculation.
+* The second argument passed to useMemo is an array of dependencies. So, if the `expensiveCalculation` function has dependencies `a` and `b`, the call will be as follows:
+[source]
+----
+const memoizedValue = useMemo(
+    () => expensiveCalculation(a, b),
+    [a, b]
+);
+----
+* When any dependencies change, the function in the first argument is executed again to return a new value to memoize. In the previous example, a new version of `memoizedValue` is created every time `a` or `b` changes.
+
+* The `useMemo` Hook *helps improve the performance of function calls* by memorizing their results and using the memoized value when the function is re-executed.
+
+== `useCallback`
+
+* The `callback` Hook memorizes a function so that it isn’t recreated on each render. The Hook is called `useCallback` and the syntax is as follows:
+[source]
+----
+const memorizedCallback = useCallback(() => someFunction(), []);
+----
+
+* A function that executes the function to memorize is passed into `useCallback` as the first argument. The second argument passed to `useCallback` is an array of dependencies. So, if the `someFunction` function has dependencies `a` and `b`, the call will be as follows:
+[source]
+----
+const memorizedCallback = useCallback(
+    () => someFunction(a, b),
+    [a, b]
+);
+----
+
+* When any dependencies change, the function in the first argument is executed again to return a new function to memorize. In the previous example, a new version of `memoizedCallback` is created every time `a` or `b` changes.
+
+* The type of the memorized function is inferred, but can be explicitly defined in a generic parameter on `useCallback`. Here is an example of explicitly defining that the memoized function has no
+parameters and returns void:
+[source]
+----
+const memorizedValue = useCallback <() => void> (
+    () => someFunction (),
+    []
+);
+----
+
+* *A common use case for* `useCallback` is to prevent unnecessary re-renders of child components.
+
+* When a component is re-rendered, the components that are part of it are re-rendered too. Re-rendering components that do not depend on state might lead to performance issues. To avoid this the `memo` function is used to wrap the component and memorizes the result for a given set of props. The memorized function is then used during a re-render if the props are the same.
+
+== Conclusions
+
+* A component re-renders when its state changes.
+* A component is re-rendered when its parent is re-rendered.
+* React’s `memo` function can be used to prevent unnecessary re-renders to child components.
+* `useCallback` can be used to memorize functions. This can be used to create a stable reference for function props passed to child components to prevent unnecessary re-renders.
+* React’s `memo` function and `useCallback` should be used wisely – make sure they help performance before using them because they increase the complexity of the code.
+* The `useEffect` Hook can be used to execute component side effects when it is rendered.
+* `useReducer` is an alternative to `useState` for using state.
+* `useState` is excellent for primitive state values.
+* `useReducer` is great for complex object state values, particularly when *state changes depend on previous state values.*
+* `useRef` Hook creates a mutable value and doesn’t cause a re-render when changed. We used `useRef` to set focus to an HTML element after it was rendered, which is a common use case.
+* The `useMemo` and `useCallback` Hooks can be used to memoize values and functions, respectively, and can be used for performance optimization.
+
+== Quizz Answers
+
+1. cannot invoke `useState` and `useEffect` conditionally
+2. Four problems:
+    * The `useEffect` Hook doesn’t allow a function marked with `async` to be passed into it. Instead, write the async function inside your effect and call it immediately.
+    * *Also, there are no dependencies. This means the effect function will be executed on every render.*
+    * Also, type is missing for the state data variable.
+    * The last problem is that the data state could be set after the component has been unmounted, which can lead to memory leaks.
+3. The button will only render once in production mode because *state changes are batched*. Button shows 1.
+4. still zero, and it will not re-render -> `useRef` does not cause a re-render
+5. no idea what is happening here!?
+6. zero
+7. one, because the component gets re-rendered, but the function stays the same

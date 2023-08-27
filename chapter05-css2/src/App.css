@@ -40,39 +40,3 @@
 .read-the-docs {
   color: #888;
 }
-
-
-.alert-wrapper {
-  padding: 15px;
-  margin-bottom: 15px;
-}
-
-.alert-wrapper h2 {
-  margin: 0 0 10px 0;
-}
-
-.success h2 {
-  color: #6DA06F;
-}
-
-.info h2 {
-  color: #333BFF;
-}
-
-.error h2 {
-  color: #F56260;
-}
-
-.alert-wrapper.success {
-  border: #6DA06F solid 1px;
-}
-
-.alert-wrapper.info {
-  border: #333BFF solid 1px;
-}
-
-.alert-wrapper.error {
-  border: #F56260 solid 1px;
-}
-
-

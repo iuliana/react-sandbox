@@ -1,14 +1,15 @@
-import { useEffect, useReducer, useRef } from 'react';
+import { useEffect, useReducer, useMemo } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFaceSmile } from '@fortawesome/free-solid-svg-icons';
+import { faGift } from '@fortawesome/free-solid-svg-icons';
+import { Person } from './PersonScore.tsx';
 
-type State = {
+export type State = {
   name: string | undefined;
   score: number;
   loading: boolean;
 };
 
-type Action =
+export type Action =
   | {
   type: 'initialize';
   name: string;
@@ -23,7 +24,16 @@ type Action =
   type: 'reset';
 };
 
-function reducer(state: State, action: Action): State {
+function sillyExpensiveFunction() {
+  console.log("Executing silly function");
+  let sum = 0;
+  for (let i = 0; i < 10000; i++) {
+    sum += i;
+  }
+  return sum;
+}
+
+export function reducer(state: State, action: Action): State {
   switch (action.type) {
     case 'initialize':
       return { name: action.name, score: 0, loading: false };
@@ -37,7 +47,7 @@ function reducer(state: State, action: Action): State {
       return state;
   }
 }
-export function PersonScoreWithRef() {
+export function PersonScoreWithMemo() {
   const [{name,score,loading}, dispatch] = useReducer(
     reducer,
     {
@@ -47,19 +57,17 @@ export function PersonScoreWithRef() {
     }
   );
 
-  const addButtonRef = useRef<HTMLButtonElement>(null);
+  //const expensiveCalculation = sillyExpensiveFunction();
+  const expensiveCalculation = useMemo(
+    () => sillyExpensiveFunction(),
+    []
+  );
 
   useEffect(() => {
-    getPersonWithRef().then(({ name }) =>
+    getPersonWithMemo().then(({ name }) =>
       dispatch({ type: 'initialize', name })
     );
   }, []);
-
-  useEffect(() => {
-    if (!loading) {
-      addButtonRef.current?.focus();
-    }
-  }, [loading]);
 
   if (loading) {
     return <div>Loading ...</div>;
@@ -69,12 +77,13 @@ export function PersonScoreWithRef() {
     <>
       <div className={`alert-wrapper success`}>
         <p>
-          Person Score with Reducer Hook<FontAwesomeIcon icon={faFaceSmile}/>
+          Person Score with Memo<FontAwesomeIcon icon={faGift}/>
         </p>
         <h3>
           {name}, {score}
         </h3>
-        <button ref={addButtonRef} onClick={() => dispatch({ type: 'increment' })}>Add</button>
+        <p>{expensiveCalculation}</p>
+        <button onClick={() => dispatch({ type: 'increment' })}>Add</button>
         <button onClick={() => dispatch({ type: 'decrement' })}>Subtract</button>
         <button onClick={() => dispatch({ type: 'reset' })}>Reset</button>
       </div>
@@ -82,10 +91,7 @@ export function PersonScoreWithRef() {
   );
 }
 
-type Person = {
-  name: string,
-};
 
-export function getPersonWithRef(): Promise<Person> {
-  return new Promise((resolve) => setTimeout(() => resolve({ name: "Reducer" }), 1000));
+export function getPersonWithMemo(): Promise<Person> {
+  return new Promise((resolve) => setTimeout(() => resolve({ name: "Memo" }), 1000));
 }

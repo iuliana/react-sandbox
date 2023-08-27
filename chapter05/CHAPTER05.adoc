@@ -8,3 +8,101 @@ cd chapter05
 npm install
 npm run dev
 ----
+
+== Plain CSS
+
+* React uses a `className` attribute rather than `class` because `class` is a reserved word in JavaScript. The `className` attribute is converted to a `class` attribute during transpilation.
+
+* The CSS import statement is a `webpack` feature. As webpack processes all the files, it will include all the imported CSS in the bundle.
+
+* The key point here is that webpack doesn’t remove any redundant CSS – *it will include all the content from all the CSS files that have been imported*. This means plain CSS classes are scoped to the whole app and not just the file it is imported into.
+
+== CSS Modules
+
+* CSS modules is an open source library available on GitHub at https://github.com/css-modules/css-modules, which can be added to the webpack process to facilitate the automatic scoping of CSS class names.
+
+* A CSS module is a CSS file, just like in the previous section; however, the filename has an extension of `.module.css` rather than `.css`. This special extension allows webpack to differentiate a CSS module file from a plain CSS file so that it can be processed differently.
+
+* A CSS module file is imported into a React component file as follows:
+
+[source]
+----
+import styles from './styles.module.css';
+----
+
+Styles within a CSS module are referenced in a component’s className attribute as follows:
+[source]
+----
+<span className={styles.error}>A bad error</span>
+----
+
+* CSS modules allow CSS class names to be automatically scoped to a React component. This
+prevents styles for different React components from clashing.
+
+* CSS modules isn’t a standard browser feature; instead, it is an open source library that can be added to the webpack process.
+
+* *Similar to plain CSS, redundant CSS classes are not pruned from the production CSS bundle.*
+
+== CSS-in-JS
+
+* **CSS-in-JS **isn’t a browser feature, and it isn’t even a specific library – instead, it is a type of library. Popular examples of CSS-in-JS libraries are *styled-components* and *Emotion*.
+
+* Emotion generates styles that are scoped, similar to CSS modules. However, *you write the CSS in JavaScript rather than in a CSS file* – hence the name *CSS-in-JS*. In fact, you can write the CSS directly on JSX elements as follows:
+
+[source, html]
+----
+<span
+    css={css`
+        font-weight: 700;
+        font-size: 14;
+    `}
+>
+    {text}
+</span>
+----
+
+* Having styles directly on the component allows a developer to fully understand the component
+without having to visit another file.
+* This increases the file size, making the code harder to read.
+* Child components can be extracted out into specific files to mitigate that.
+* A massive benefit of CSS-in-JS is that you can mix logic into the style, which is really useful for highly interactive apps.
+* The following example contains a conditional `font-weight` dependent on an `important` prop and a conditional `font-size` dependent on a `mobile` prop. JavaScript string interpolation is used to define the conditional statement.
+
+[source, html]
+----
+<span
+    css={css`
+        font-weight: ${important ? 700 : 400};
+        font-size: ${mobile ? 15 : 14};
+    `}
+>
+  {text}
+</span>
+----
+This is easier to read than the plain CSS manipulation of two classes:
+[source, html]
+----
+<span
+    className={`${important ? "text-important" : ""} ${ mobile ? "text-important" : "" }`}
+>
+  {text}
+</span>
+----
+
+Install the `Emotion` library.
+
+[source]
+----
+npm i @emotion/react
+----
+
+* To allow the `css` attribute in React components, the file must start with `/** @jsxImportSource @emotion/react */`.
+* The `css` attribute is set to a *tagged template literal*. This is a special string that gets processed by the function specified before it, which is a function called `css` in this case. The tagged template literal converts the style to a CSS class at runtime.
+
+* *This is because Emotion generates the styles at runtime via JavaScript rather than at build time.* If you think about it, the styles can’t be generated at build time because they may depend on JavaScript variables whose values are only known at runtime.
+
+== Using Tailwind CSS
+
+* *Tailwind is a set of prebuilt CSS classes that can be used to style an app*. It is referred to as a *utility-first CSS framework* because the prebuilt classes can be thought of as flexible utilities.
+
+
