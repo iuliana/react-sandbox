@@ -103,6 +103,32 @@ npm i @emotion/react
 
 == Using Tailwind CSS
 
-* *Tailwind is a set of prebuilt CSS classes that can be used to style an app*. It is referred to as a *utility-first CSS framework* because the prebuilt classes can be thought of as flexible utilities.
+* *Tailwind is a set of prebuilt CSS classes that can be used to style an app*. It is referred to as a *utility-first CSS framework* because the prebuilt classes can be thought of as flexible utilities. Tailwind contains a nice color palette that can be customized. The utility classes can be used together to style an element.
 
+* The utility classes are low-level and focused on styling a very specific thing. This makes the classes flexible, allowing them to be highly reusable.
 
+* Tailwind can specify that a class should be applied when the element is in a hover state by prefixing it with `hover:`.
+
+* So, a key point of Tailwind is that we don’t write new CSS classes for each element we want to style – instead, we use a large range of well-thought-through existing classes. A benefit of this approach is that it helps an app look nice and consistent.
+
+* Installing and configuring tailwind:
+
+[source, shell]
+----
+npm i -D tailwindcss
+npm i -D postcss # PostCSS is a tool that transforms CSS using JavaScript and Tailwind runs as a plugin in it.
+npm i -D autoprefixer # Tailwind also recommends another PostCSS called Autoprefixer, which adds vendor prefixes to CSS
+npx tailwindcss init -p # generate configuration files for Tailwind and PostCSS
+----
+
+In `index.css` we add `@tailwind` directives that generate the CSS required by Tailwind during the build process.
+
+* Tailwind is a well-thought-through collection of reusable CSS classes that can be applied to React elements
+* Tailwind has a nice default color palette and a 4 px spacing scale, both of which can be customized
+* Tailwind is a plugin for PostCSS and executed at build time
+* Tailwind does not incur a runtime performance penalty like Emotion, because the styles aren’t created and applied at runtime
+* Only classes used on React elements are included in the CSS build bundle
+
+== Using SVGs
+
+* SVG stands for Scalable Vector Graphics, and it is made up of points, lines, curves, and shapes based on mathematical formulas rather than specific pixels. This allows them to scale when resized without distortion. The quality of icons is important to get right – if they are distorted, they make the whole app feel unprofessional. Using SVGs for icons is common in modern web development.
