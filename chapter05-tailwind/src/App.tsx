@@ -1,11 +1,11 @@
 import { Alert } from './Alert';
-import { ReactComponent as Logo } from './assets/logo.svg';
+import { ReactComponent as Logo } from './assets/react.svg';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Logo />
+      <Logo/>
       </header>
       <Alert heading="Success" closable>
         React with Tailwind CSS!

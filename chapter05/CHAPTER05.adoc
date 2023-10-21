@@ -13,6 +13,7 @@ npm run dev
 
 * React uses a `className` attribute rather than `class` because `class` is a reserved word in JavaScript. The `className` attribute is converted to a `class` attribute during transpilation.
 
+
 * The CSS import statement is a `webpack` feature. As webpack processes all the files, it will include all the imported CSS in the bundle.
 
 * The key point here is that webpack doesn’t remove any redundant CSS – *it will include all the content from all the CSS files that have been imported*. This means plain CSS classes are scoped to the whole app and not just the file it is imported into.
@@ -105,4 +106,118 @@ npm i @emotion/react
 
 * *Tailwind is a set of prebuilt CSS classes that can be used to style an app*. It is referred to as a *utility-first CSS framework* because the prebuilt classes can be thought of as flexible utilities.
 
+Install the `Tailwind` framework.
 
+[source]
+----
+npm i -D tailwindcss
+npm i -D postcss
+npm i -D autoprefixer
+----
+
+Next, run the following command in a terminal to generate configuration files for Tailwind and PostCSS:
+[source]
+----
+npx tailwindcss init -p
+----
+
+After a few seconds, the two configuration files are created. The Tailwind configuration file is called `tailwind.config.js`, and the PostCSS configuration file is called `postcss.config.js`.
+
+Add configurations for the TSX files in `tailwind.config.js` and edit the `index.css` to add the tailwind directives.
+
+[source]
+----
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+----
+
+== Using SVGs
+
+1.Install Vite SVG plugin
+
+[source]
+----
+npm install vite-plugin-svgr
+----
+
+2.Create a file named `svg.d.ts` and add this configuration.
+
+[source]
+----
+declare module "*.svg" {
+  import * as React from "react";
+
+  export const ReactComponent: React.FunctionComponent<
+    React.SVGProps<SVGSVGElement> & { title?: string }
+  >;
+}
+----
+
+3.Add this file to the `include` array in `tsconfig.json`.
+
+4.Add `tailwind` configuration into the `vite.config.ts`.
+
+[source]
+----
+import tailwindcss from 'tailwindcss'
+
+export default defineConfig({
+  plugins: [react(), svgr()],
+
+  css: {
+    postcss: {
+      plugins: [tailwindcss],
+    },
+  },
+})
+----
+
+This will make IntelliJ IDEA accept the svg imports.
+
+== Summary
+
+1. plain CSS - applies to all React components
+2. CSS modules - scoped css applied only to certain components
+3. CSS-in-JS libraries - allows style to be defined directly on the React components
+4. Tailwind CSS - reusable CSS classes, *determined at build time*
+
+== Quizz Answers
+
+1.hardcoded - might break the component if the class is removed. Also, maybe change the name to make it component specific to avoid clash with other classes.
+
+2.no. The CSS won’t clash because CSS modules will scope the class names to each component.
+
+3.class name different from the one in the `<div/>` element, should be `styles.wrap`.
+
+4.this way:
+[source, react]
+----
+<button
+    css={css`
+    border-radius: ${kind === "rounded" ? "4px" : "0px"};
+    `}
+>
+...
+</button>
+----
+5.this way:
+[source, react]
+----
+  const [hovered, setHovered] = useState(false);
+  const toggleHover = () => setHovered(!hovered);
+
+   <button aria-label="Close"
+                  onMouseEnter={toggleHover}
+                  onMouseLeave={toggleHover}
+                  className={hovered ? 'bg-blue-700 text-cyan-400 font-bold py-2 px-4 rounded' : 'bg-blue-500 text-white font-bold py-2 px-4 rounded'}>
+----
+6.this way:
+[source, javascript]
+----
+import { ReactComponent as Logo } from './logo.svg';
+----
+7.`The bg-${color}-500` class name is problematic because this can only be resolved at
+runtime because of the color variable. The used Tailwind classes are determined at build time
+and added to the bundle, meaning the relevant background color classes won’t be bundled.
+This means that the background color style won’t be applied to the button.
