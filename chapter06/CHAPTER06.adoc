@@ -1,0 +1,82 @@
+= Chapter 5 : Routing with React Router
+
+[source, shell]
+----
+npm create vite@latest
+cd chapter06
+npm install
+npm run dev
+
+npm i -D tailwindcss
+npm i -D postcss
+npm i -D autoprefixer
+
+npx tailwindcss init -p
+
+// needed for svg as React components support
+npm i loader-utils
+npm install vite-plugin-svgr
+----
+
+In `tailwind.config.js` modify the `content` to:
+
+[source, javascript]
+----
+content: [
+    "./index.html",
+    "./src/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,ts,jsx,tsx}",
+]
+----
+
+Create a file named `svg.d.ts` and add this configuration.
+
+[source]
+----
+declare module "*.svg" {
+  import * as React from "react";
+
+  export const ReactComponent: React.FunctionComponent<
+    React.SVGProps<SVGSVGElement> & { title?: string }
+  >;
+}
+----
+
+*Goal:* learn about
+
+* how to implement static links from a list page to an item page and implement route parameters on the item page for the item identifier.
+* form navigation and query parameters.
+
+*Topics:*
+
+* Introducing React Router
+* Declaring routes
+* Creating navigation
+* Using nested routes
+* Using route parameters
+* Creating an error page
+* Using index routes
+* Using search parameters
+* Navigating programmatically
+* Using form navigation
+* Implementing lazy loading
+
+== Introducing React Router
+
+* *A router is responsible for selecting what to show in the app for a requested path.* As the name suggests, React Router is a routing library for React apps.
+* For any app containing multiple pages, a router is essential, and React Router has been a popular router library
+for React for many years.
+
+Installing React Router:
+
+[source]
+----
+npm i react-router-dom
+----
+
+* A router in React Router is a component that tracks the browser’s URL and performs navigation. Several routers are available in React Router, and the one recommended for web applications is called a *browser router.*
+
+* As its name suggests, the `createBrowserRouter` function creates a browser router.
+* `createBrowserRouter` requires an argument containing all the routes in the application.
+* A *route* contains a path and what component to render when the app’s browser address matches that path.
+* React Router comes with components called `Link` and `NavLink`, which provide navigation

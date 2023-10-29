@@ -2,8 +2,6 @@ import { useState } from 'react'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {faInfo, faWarning, faXmark} from "@fortawesome/free-solid-svg-icons"
 
-import './App.css'
-
 type Props = {
   type?: string;
   heading: string;

@@ -156,7 +156,7 @@ declare module "*.svg" {
 
 3.Add this file to the `include` array in `tsconfig.json`.
 
-4.Add `tailwind` configuration into the `vite.config.ts`.
+4.Add `svg` configuration into the `vite.config.ts`.
 
 [source]
 ----
