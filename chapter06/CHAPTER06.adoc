@@ -80,3 +80,129 @@ npm i react-router-dom
 * `createBrowserRouter` requires an argument containing all the routes in the application.
 * A *route* contains a path and what component to render when the app’s browser address matches that path.
 * React Router comes with components called `Link` and `NavLink`, which provide navigation
+* React Router’s `NavLink` is like a `Link` element but allows it to be styled differently when active.
+
+=== Nested Routes
+
+* A nested route allows a segment of a route to render a component.
+* Nested routes allow components to be rendered for different path segments. An `Outlet` component is to render nested content within a parent component.
+
+[source, javascript]
+----
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+    children: [
+      {
+        path: 'products',
+        element: <ProductsPage />,
+      }
+    ]
+  }
+]);
+----
+
+NOTE: The empty JSX elements, <> and </>, are React fragments. React fragments are not added to the DOM and are used as a workaround to React components only being able to return a single element, so they are a way of returning multiple elements in a React component that keeps React happy.
+
+=== Route Parameters
+
+* A route parameter is a segment in the path that varies. The value of the variable segment is available to components so that they can render something conditionally.
+* This can be defined as a route parameter in a route as follows:
+[source, javascript]
+----
+{
+  path: '/customer/:id',
+  element: <Customer />
+}
+----
+* A colon (:) followed by a name defines a route parameter. It is up to us to choose a parameter name that makes sense.
+* Multiple route parameters can be used when defining a route, in the `path`, but they must have unique names.
+* Route parameters are available to components using React Router’s `useParams` hook.
+[source, javascript]
+----
+const params = useParams<Params>();
+console.log('Customer id', params.customerId);
+console.log('Task id', params.taskId);
+----
+* The `useParams` hook has a generic argument that defines the type for the parameters. The type definition for the preceding code snippet is as follows:
+[source, javascript]
+----
+type Params = {
+    customerId: string;
+    taskId: string;
+};
+----
+* route parameter values are always strings because they are extracted from paths, which are strings.
+* when no error page is configured the React Router built-in error page is shown when a user tries to access non-existing path, for example. The default error page contains developer details, is not styled as the site is and might be confusing for a user.
+* an `errorElement` prop can be used on a route to override the standard error page.
+* React Router’s `useRouteError` hook provides more information about the error.
+[source, javascript]
+----
+const router = createBrowserRouter([
+    {
+        path: '/',
+        element: <App />,
+        errorElement: <ErrorPage />,
+        children: ...
+    },
+]);
+----
+
+=== Using index routes
+
+* An index route can be thought of as a default child route. In React Router, if no children match a
+parent route, it will display an index route if one is defined. An index route has no path and instead
+has an `index` `Boolean` property, as in the following example:
+
+[source, javascript]
+----
+{
+    path: "/",
+    element: <App />,
+    children: [
+        {
+            index: true,
+            element: <HomePage />,
+        },
+    ...,
+    ]
+}
+----
+
+=== Using search parameters
+
+* *Search parameters* are part of a URL that comes after the `?` character and separated by the `&` character.
+Search parameters are sometimes referred to as query parameters. In the following URL, `type` and
+`when` are search parameters: `https://somewhere.com/?type=sometype&when=recent`.
+
+* React Router has a hook that returns functions for getting and setting search parameters called `useSearchParams`:
+[source, javascript]
+----
+const [searchParams, setSearchParams] = useSearchParams();
+----
+* `searchParams` is a JavaScript `URLSearchParams` object. There is a `get` method on `URLSearchParams`, which can be used to get the value of a search parameter. The following example gets the value of a search parameter called `type`:
+[source, javascript]
+----
+const type = searchParams.get('type');
+----
+* `setSearchParams` is a function used to set search parameter values. The function parameter is an object as in the following example:
+[source, javascript]
+----
+setSearchParams({ type: 'sometype', when: 'recent' });
+----
+
+=== Navigating programmatically
+
+* React Router’s `Link` and `NavLink` components allow declarative navigation. However, sometimes we
+must navigate imperatively – in fact, this would be useful for the search feature in our app to navigate
+to the products list page.
+* The `useNavigate` hook returns a function we can use to perform programmatic navigation.
+
+=== Using form navigation
+
+* `Form` is a wrapper around the HTML form element that handles the form submission on the client side. This will replace the use of `useNavigate` and simplify the code.
+
+* React Router’s form submission mimics how a native form element submits to a server path. However, React Router submits the form to a client-side route instead. In addition, `Form` mimics an `HTTP GET` request by default, so a search parameter will automatically be added to the URL.
+
+=== Implementing lazy loading
