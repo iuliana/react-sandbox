@@ -206,3 +206,23 @@ to the products list page.
 * React Router’s form submission mimics how a native form element submits to a server path. However, React Router submits the form to a client-side route instead. In addition, `Form` mimics an `HTTP GET` request by default, so a search parameter will automatically be added to the URL.
 
 === Implementing lazy loading
+
+* In the app developed so far, the app is loaded entirely when the app first loads. This can be problematic in large apps. Solution: load parts of the app only when accessed, aka *lazy loading*.
+* By default, all React components are bundled together and loaded when the app first loads. Lazily loading React components addresses this issue because lazy components aren’t included in the initial bundle that is loaded; instead, their JavaScript is fetched and loaded when rendered.
+* There are two main steps to lazy loading React components.
+    ** First, the component must be dynamically imported as follows: `const LazyPage = lazy(() => import('./LazyPage'));` . `lazy()` is a function from React that enables the imported component to be lazily loaded.
+    ** The second step is to render the lazy component inside React’s Suspense component as follows:
+
+[source, javascript]
+----
+<Route
+  path="lazy"
+  element={
+    <Suspense fallback={<div>Loading…</div>}>
+      <LazyPage />
+    </Suspense>
+  }
+/>
+----
+* The `Suspense` component’s fallback prop can be set to an element to render while the lazy page is being fetched.
+
